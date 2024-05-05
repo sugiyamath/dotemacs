@@ -20,14 +20,15 @@
       (package-install pkg))))
 
 ;; Pythonの設定
-(defun python-autopep8 ()
-  "Run autopep8 on current Python buffer."
+(defun python-autopep8-and-isort ()
+  "Run autopep8 and isort on current Python buffer."
   (interactive)
   (when (eq major-mode 'python-mode)
     (shell-command-on-region (point-min) (point-max)
-			     "autopep8 -" nil t)))
+                             "autopep8 - | isort -" nil t)))
+
 (with-eval-after-load 'python
-    (define-key python-mode-map (kbd "C-c C-r") 'python-autopep8))
+  (define-key python-mode-map (kbd "C-c C-r") 'python-autopep8-and-isort))
 
 (with-eval-after-load 'company
   (add-to-list 'company-backends 'company-capf))
