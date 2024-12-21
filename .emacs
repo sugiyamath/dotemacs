@@ -8,7 +8,8 @@
   '(company
     cyberpunk-theme
     web-mode
-    emmet-mode))
+    emmet-mode
+    cython-mode))
 
 (let ((not-installed
        (cl-loop for x in my/packages
@@ -39,6 +40,9 @@
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 
+;; Cythonの設定
+(add-to-list 'auto-mode-alist '("\\.pyx\\'" . cython-mode))
+
 (defun my/web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
@@ -52,3 +56,15 @@
 
 ;; テーマの設定
 (load-theme 'cyberpunk t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(emmet-mode web-mode cyberpunk-theme company)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
