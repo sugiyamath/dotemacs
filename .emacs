@@ -24,12 +24,18 @@
 (defun python-autopep8-and-isort ()
   "Run autopep8 and isort on current Python buffer."
   (interactive)
-  (when (eq major-mode 'python-mode)
+  (when (and (eq major-mode 'python-mode)
+             (executable-find "autopep8")
+             (executable-find "isort"))
     (shell-command-on-region (point-min) (point-max)
                              "autopep8 - | isort -" nil t)))
 
 (with-eval-after-load 'python
-  (define-key python-mode-map (kbd "C-c C-r") 'python-autopep8-and-isort))
+  (define-key python-mode-map (kbd "C-c C-r") 
+    (if (and (executable-find "autopep8") 
+             (executable-find "isort"))
+        'python-autopep8-and-isort
+      'nil))) ;; autopep8またはisortがない場合は無効化
 
 (with-eval-after-load 'company
   (add-to-list 'company-backends 'company-capf))
